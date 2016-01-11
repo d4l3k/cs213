@@ -1,0 +1,9 @@
+Dec   521829, Hex 0x0007f665
+Dec -2207359, Hex 0xffde5181
+
+These are using bit endian so we need to flip the endianness. To do this we
+reverse the pairs of bytes.
+
+Thus:
+0x65f60700
+0x8151deff
