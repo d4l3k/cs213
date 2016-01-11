@@ -5,7 +5,8 @@ public class Endianness {
   public static int bigEndianValue (Byte[] mem) {
     int out = 0;
     for (int i=0; i < mem.length; i++) {
-      out += mem[mem.length-i-1] * Math.pow(256, i);
+      int b = mem[mem.length-1-i] & 0xFF;
+      out += b << (8 * i);
     }
     return out;
   }
@@ -13,7 +14,8 @@ public class Endianness {
   public static int littleEndianValue (Byte[] mem) {
     int out = 0;
     for (int i=0; i < mem.length; i++) {
-      out += mem[i] * Math.pow(256, i);
+      int b = mem[i] & 0xFF;
+      out += b << (8 * i);
     }
     return out;
   }

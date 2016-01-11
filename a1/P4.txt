@@ -1,0 +1,103 @@
+# Low Edge Bit
+Memory Contents
+  Addr   Value
+    0:   0x0
+    1:   0x0
+    2:   0x0
+    3:   0x1
+The big    endian integer value at address 0 is 1
+The little endian integer value at address 0 is 16777216
+
+Memory Contents
+  Addr   Value
+    0:   0x1
+    1:   0x0
+    2:   0x0
+    3:   0x0
+The big    endian integer value at address 0 is 16777216
+The little endian integer value at address 0 is 1
+
+
+
+# High edge bit
+Memory Contents
+  Addr   Value
+    0:   0x80
+    1:   0x0
+    2:   0x0
+    3:   0x0
+The big    endian integer value at address 0 is -2147483648
+The little endian integer value at address 0 is 128
+
+Memory Contents
+  Addr   Value
+    0:   0x0
+    1:   0x0
+    2:   0x0
+    3:   0x80
+The big    endian integer value at address 0 is 128
+The little endian integer value at address 0 is -2147483648
+
+
+
+# Low edge bit
+Memory Contents
+  Addr   Value
+    0:   0x1
+    1:   0x2
+    2:   0x3
+    3:   0x4
+The big    endian integer value at address 0 is 16909060
+The little endian integer value at address 0 is 67305985
+
+Memory Contents
+  Addr   Value
+    0:   0x4
+    1:   0x3
+    2:   0x2
+    3:   0x1
+The big    endian integer value at address 0 is 67305985
+The little endian integer value at address 0 is 16909060
+
+
+
+# Midrange + high edge bit
+Memory Contents
+  Addr   Value
+    0:   0x1
+    1:   0x2
+    2:   0x3
+    3:   0x80
+The big    endian integer value at address 0 is 16909184
+The little endian integer value at address 0 is -2147286527
+
+Memory Contents
+  Addr   Value
+    0:   0x80
+    1:   0x3
+    2:   0x2
+    3:   0x1
+The big    endian integer value at address 0 is -2147286527
+The little endian integer value at address 0 is 16909184
+
+
+
+# Midrange high edge bit
+Memory Contents
+  Addr   Value
+    0:   0x0
+    1:   0x0
+    2:   0x80
+    3:   0x0
+The big    endian integer value at address 0 is 32768
+The little endian integer value at address 0 is 8388608
+
+Memory Contents
+  Addr   Value
+    0:   0x0
+    1:   0x80
+    2:   0x0
+    3:   0x0
+The big    endian integer value at address 0 is 8388608
+The little endian integer value at address 0 is 32768
+
