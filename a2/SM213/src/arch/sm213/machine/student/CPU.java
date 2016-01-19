@@ -9,11 +9,11 @@ import util.UnsignedByte;
 /**
  * The Simple Machine CPU.
  *
- * Simulate the execution of a single cycle of the Simple Machine SM213 CPU. 
+ * Simulate the execution of a single cycle of the Simple Machine SM213 CPU.
  */
 
 public class CPU extends AbstractSM213CPU {
-  
+
   /**
    * Create a new CPU.
    *
@@ -23,7 +23,7 @@ public class CPU extends AbstractSM213CPU {
   public CPU (String name, AbstractMainMemory memory) {
     super (name, memory);
   }
-  
+
   /**
    * Fetch Stage of CPU Cycle.
    * Fetch instruction at address stored in "pc" register from memory into instruction register
@@ -60,7 +60,7 @@ public class CPU extends AbstractSM213CPU {
     pc.set (pcVal);
   }
 
-  
+
   /**
    * Execution Stage of CPU Cycle.
    * Execute instruction that was fetched by Fetch stage.
@@ -136,7 +136,7 @@ public class CPU extends AbstractSM213CPU {
       case 0x7: // sh? $i,rd ............. 7dii
         int amount = insOpImm.get();
         if (amount < 0) {
-          reg.set(insOp0.get(), reg.get(insOp0.get()) >>> -amount);
+          reg.set(insOp0.get(), reg.get(insOp0.get()) >> -amount);
         } else {
           reg.set(insOp0.get(), reg.get(insOp0.get()) << amount);
         }
