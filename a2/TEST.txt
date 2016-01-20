@@ -1,0 +1,1 @@
+To run the tests, load  test.s into the simulator then step through it and verify that each operation does what the comment says it should do.
