@@ -33,21 +33,21 @@
   st r1, (r3, r0, 4) # d[i] = a[b[i]] + b[a[i]];
 
   # d[b[i]] = b[a[i & 3] & 3] - a[b[i & 3] & 3] + d[i];
-  mov r0, r1 # i
-  ld $0x3, r2 # 3
-  and r2, r1 # i & 3
+  mov r0, r1         # i
+  ld $0x3, r2        # 3
+  and r2, r1         # i & 3
   ld (r4, r1, 4), r5 # a[i & 3]
-  and r2, r5 # a[i & 3] & 3
+  and r2, r5         # a[i & 3] & 3
   ld (r6, r5, 4), r5 # b[a[i & 3] & 3]
   ld (r6, r1, 4), r7 # b[i & 3]
-  and r2, r7 # b[i & 3] & 3
+  and r2, r7         # b[i & 3] & 3
   ld (r4, r7, 4), r7 # a[b[i & 3] & 3]
-  ld $0x1, r2 # 1
-  not r7 # two's complement -a[b[i & 3] & 3]: negate
-  add r2, r7 # add 1
-  add r5, r7 # b[a[i & 3] & 3] - a[b[i & 3] & 3]
+  ld $0x1, r2        # 1
+  not r7             # two's complement -a[b[i & 3] & 3]: negate
+  add r2, r7         # add 1
+  add r5, r7         # b[a[i & 3] & 3] - a[b[i & 3] & 3]
   ld (r3, r0, 4), r2 # d[i]
-  add r2, r7 # b[a[i & 3] & 3] - a[b[i & 3] & 3] + d[i];
+  add r2, r7         # b[a[i & 3] & 3] - a[b[i & 3] & 3] + d[i];
   ld (r6, r0, 4), r2 # b[i]
   st r7, (r3, r2, 4) # d[b[i]] = b[a[i & 3] & 3] - a[b[i & 3] & 3] + d[i];
 
