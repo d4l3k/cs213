@@ -1,6 +1,6 @@
 .pos 0x100
 
-  ld 0x204, r0 # *c
+  ld $0x204, r0 # *c
   ld $0x5, r1 # 5
   st r0, (r1) # c = 5;
 
@@ -33,17 +33,17 @@
   halt
 
 .pos 0x200
-# Data
+  # Data
 
-b: .long 0 # int b;
-c: .long 0 # int c;
-a: .long 0 # int a[10];
-   .long 0
-   .long 0
-   .long 0
-   .long 0
-   .long 0
-   .long 0
-   .long 0
-   .long 0
-   .long 0
+  b: .long 0 # int b; 0x200
+  c: .long 0 # int c; 0x204
+  a: .long 0 # int a[10]; 0x208
+     .long 0
+     .long 0
+     .long 0
+     .long 0
+     .long 0
+     .long 0
+     .long 0
+     .long 0
+     .long 0
