@@ -4,7 +4,7 @@
   ld $0x5, r1   # 5
   st r1, (r0)   # c = 5;
 
-  ld $0x10, r1 # 10
+  ld $0x0a, r1 # 10
   ld (r0), r2  # c
   add r2, r1   # c + 10
   ld $0x200, r3 # *b
