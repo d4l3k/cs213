@@ -1,0 +1,4 @@
+There are 3 memory reads:
+  i
+  *y # since y is a pointer
+  y[i]
