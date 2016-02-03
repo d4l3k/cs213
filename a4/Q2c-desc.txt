@@ -1,4 +1,3 @@
-Three memory reads occur:
-  i
+Two memory reads occur:
   *z      # since z is a pointer
   z->x[i]

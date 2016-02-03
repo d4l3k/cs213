@@ -1,1 +1,1 @@
-There are two memory reads. One for i, and one to load x[i]. Everything else is statically defined.
+There is one memory read. Just one to load x[i]. Everything else is statically defined.
