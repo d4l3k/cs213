@@ -37,7 +37,8 @@
   static:
   i: .long 0
   v: .long 0
-  s: .long 0 # int x[0]
+  s:
+  x: .long 0 # int x[0]
      .long 0 # int x[1]
   y: .long 0 # int *y
   z: .long 0 # struct S *z
