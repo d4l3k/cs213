@@ -17,7 +17,7 @@
   ld $i, r1           # r1 = &i
   ld (r1), r1         # r1 = i
 
-  ld $x, r2           # r2 = &x
+  ld $s, r2           # r2 = &x
   ld (r2, r1, 4), r3  # r3 = x[i]
   st r3, (r0)         # v = x[i]
 
@@ -35,20 +35,19 @@
 
 .pos 0x2000
   static:
-  i: .long 0
+  i: .long 1
   v: .long 0
-  s:
-  x: .long 0 # int x[0]
-     .long 0 # int x[1]
+  s: .long 1 # int x[0]
+     .long 4 # int x[1]
   y: .long 0 # int *y
   z: .long 0 # struct S *z
 
 .pos 0x3000
-  heap0: .long 0 # int y[0]
-         .long 0 # int y[1]
+  heap0: .long 2 # int y[0]
+         .long 5 # int y[1]
 
-  heap1: .long 0 # int x[0]
-         .long 0 # int x[1]
+  heap1: .long 3 # int x[0]
+         .long 6 # int x[1]
          .long 0 # int *y
          .long 0 # struct S *z
 
