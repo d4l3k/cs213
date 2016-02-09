@@ -18,9 +18,11 @@ void push (char* aName) {
 
 char* pop() {
   struct Element* e = top;
+  char *name = malloc(sizeof(char)*200);
+  strncpy (name, e->name, sizeof(char)*200);
   top = e->next;
   free (e);
-  return e->name;
+  return name;
 }
 
 int main (int argc, char** argv) {
@@ -33,4 +35,8 @@ int main (int argc, char** argv) {
   char* y = pop();
   char* z = pop();
   printf ("%s %s %s %s\n", w, x, y, z);
+  free(w);
+  free(x);
+  free(y);
+  free(z);
 }
