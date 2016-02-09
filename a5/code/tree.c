@@ -27,7 +27,7 @@ static void tree_delete_helper (node_t n) {
   if (n != NULL) {
     tree_delete_helper (n->left);
     tree_delete_helper (n->right);
-    free (n->e);
+    element_dec_ref(n->e);
     free (n);
   }
 }
@@ -48,6 +48,7 @@ static node_t tree_insert_node_helper (node_t* np, element_t e) {
       return tree_insert_node_helper (&(*np)->right, e);
   } else {
     *np = malloc (sizeof (**np));
+    element_inc_ref(e);
     (*np)->e    = e;
     (*np)->left = (*np)->right = NULL;
     return *np;

@@ -1,0 +1,1 @@
+pop was freeing the element struct, but returning a pointer to the char array within that struct. To fix, you have to allocate a new char array and copy the memory to it.

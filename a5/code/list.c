@@ -10,7 +10,26 @@ struct list {
 struct element {
   char*     value;
   element_t prev, next;
+
+  int refs;
 };
+
+void element_inc_ref(element_t e) {
+  if (e == NULL) {
+    return;
+  }
+  e->refs += 1;
+}
+void element_dec_ref(element_t e) {
+  if (e == NULL) {
+    return;
+  }
+  e->refs -= 1;
+  if (e->refs == 0) {
+    free(e->value);
+    free(e);
+  }
+}
 
 /**
  * Create new list
@@ -39,15 +58,20 @@ void list_delete (list_t l) {
  */
 element_t list_add_element (list_t l, char* value) {
   element_t e = malloc (sizeof (*e));
+  e->refs = 0;
   e->value    = strdup (value);
   e->prev = e->next = NULL;
-  if (l->head == NULL)
+  if (l->head == NULL) {
     l->head = e;
-  else {
+    element_inc_ref(e);
+  } else {
     l->tail->next = e;
+    element_inc_ref(e);
     e->prev       = l->tail;
+    element_inc_ref(l->tail);
   }
   l->tail = e;
+  element_inc_ref(e);
   return e;
 }
 
@@ -55,17 +79,26 @@ element_t list_add_element (list_t l, char* value) {
  * Remove element from list and free it
  */
 void list_delete_element (list_t l, element_t e) {
-  if (e == l->head)
+  if (e == l->head) {
+    element_dec_ref(l->head);
     l->head = e->next;
-  else
+    element_inc_ref(e->next);
+  } else {
+    element_dec_ref(e->prev->next);
     e->prev->next = e->next;
-  if (e == l->tail)
+    element_inc_ref(e->next);
+  } if (e == l->tail) {
+    element_dec_ref(l->tail);
     l->tail = e->prev;
-  else
+    element_inc_ref(e->prev);
+  } else {
+    element_dec_ref(e->next->prev);
     e->next->prev = e->prev;
+    element_inc_ref(e->prev);
+  }
+  element_dec_ref(e->next);
+  element_dec_ref(e->prev);
   e->next = e->prev = NULL;
-  free (e->value);
-  free (e);
 }
 
 /**

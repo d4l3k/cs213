@@ -1,0 +1,8 @@
+Each instance of element_t may be used in several different places in the
+program. This makes ownership of the data uncertain, and causes issues when one
+part of the code incorrectly calls free on it while it's being used elsewhere.
+To fix this I added an int field "refs" to struct element, and added helper
+functions element_inc_ref and element_dec_ref. These functions change the
+"refs" field, and when it hits zero frees the object. I then went through and
+found every place that assigns an element_t to something, or frees it and added
+ref functions while removing the free(e) statements.
