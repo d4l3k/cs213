@@ -1,0 +1,7 @@
+read s
+read s[0]
+read s[0][1]
+read s[1]
+read s[1][1]
+write s[1][0]
+write s[0][0]
