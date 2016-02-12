@@ -25,7 +25,7 @@ void element_dec_ref(element_t e) {
     return;
   }
   e->refs -= 1;
-  if (e->refs == 0) {
+  if (e->refs <= 0) {
     free(e->value);
     free(e);
   }
@@ -62,16 +62,21 @@ element_t list_add_element (list_t l, char* value) {
   e->value    = strdup (value);
   e->prev = e->next = NULL;
   if (l->head == NULL) {
+    element_inc_ref(e);
+    element_dec_ref(l->head);
     l->head = e;
-    element_inc_ref(e);
   } else {
-    l->tail->next = e;
     element_inc_ref(e);
-    e->prev       = l->tail;
+    element_dec_ref(l->tail->next);
+    l->tail->next = e;
+
     element_inc_ref(l->tail);
+    element_dec_ref(e->prev);
+    e->prev       = l->tail;
   }
-  l->tail = e;
   element_inc_ref(e);
+  element_dec_ref(l->tail);
+  l->tail = e;
   return e;
 }
 
@@ -80,25 +85,24 @@ element_t list_add_element (list_t l, char* value) {
  */
 void list_delete_element (list_t l, element_t e) {
   if (e == l->head) {
-    element_dec_ref(l->head);
+    element_inc_ref(e->next);
     l->head = e->next;
-    element_inc_ref(e->next);
   } else {
-    element_dec_ref(e->prev->next);
+    element_inc_ref(e->next);
     e->prev->next = e->next;
-    element_inc_ref(e->next);
-  } if (e == l->tail) {
-    element_dec_ref(l->tail);
+  }
+  if (e == l->tail) {
+    element_inc_ref(e->prev);
     l->tail = e->prev;
-    element_inc_ref(e->prev);
   } else {
-    element_dec_ref(e->next->prev);
-    e->next->prev = e->prev;
     element_inc_ref(e->prev);
+    e->next->prev = e->prev;
   }
   element_dec_ref(e->next);
   element_dec_ref(e->prev);
   e->next = e->prev = NULL;
+  element_dec_ref(e);
+  element_dec_ref(e);
 }
 
 /**
