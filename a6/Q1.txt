@@ -1,0 +1,5 @@
+a) S7-static-call-stack uses a stack to keep track of the return pointers. S7-static-call-regs just keeps the return pointer in a register.
+
+b) The stack allows for more complex programs. It's not used in this example, but it's possible for ping to call other functions without worrying about loosing track of the return pointer. The amount of recursion is tied to amount of memory, not 8 registers.
+
+c) reg is more efficient for small programs since it doesn't require an extra read and write to memory.

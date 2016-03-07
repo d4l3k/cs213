@@ -32,12 +32,12 @@ s:               .long 0x00000000         # s
 
 .pos 0x1000
 stackTop:        .long 0x00000000
-                 .long 0x00000000         
-                 .long 0x00000000         
-                 .long 0x00000000         
-                 .long 0x00000000         
-                 .long 0x00000000         
-                 .long 0x00000000         
-                 .long 0x00000000         
-                 .long 0x00000000         
+                 .long 0x00000000
+                 .long 0x00000000
+                 .long 0x00000000
+                 .long 0x00000000
+                 .long 0x00000000
+                 .long 0x00000000
+                 .long 0x00000000
+                 .long 0x00000000
 stackBtm:        .long 0x00000000

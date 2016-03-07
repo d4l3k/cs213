@@ -1,0 +1,6 @@
+a) 20-21
+b) 30-31
+
+c) Increase the amount of space allocated and deallocated for local variables in b by 4 bytes (line 20, 30). Load those arguments into registers for use.
+
+d) Increase the amount of space allocated for arguments in foo (line 7, 15) by 4 bytes and add a line of code to set that argument.
