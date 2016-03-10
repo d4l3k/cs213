@@ -21,3 +21,6 @@ Replace 7 with:
 ld   $0xfffffff4, r0
 Replace 15 with:
 ld   $0xc, r0
+Insert after 12:
+ld 0x2, r0
+st r0, 0x8(r5)
