@@ -3,6 +3,14 @@ b) 15-16 and 30-31
 c)
 Replace 20 with:
 ld   $0xffffffec, r0
+Replace 22 with:
+st   r6, 0xc(r5)
+Replace 23 with:
+ld   0x10(r5), r0
+Replace 25 with:
+ld   0x14(r5), r0
+Replace 29 with:
+ld   0xc(r5), r6
 Replace 30 with:
 ld   $0x14, r0
 d)
