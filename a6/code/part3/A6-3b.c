@@ -35,13 +35,13 @@ int f(int a) {
 }
 
 void main() {
-  for (int i=8; i>0; i--) {
+  for (int i=0; i<8; i++) {
     y[i] = f(x[i]);
   }
-  for (int i=0; i<8;i++) {
+  for (int i=0; i<8; i++) {
     printf("%d\n", x[i]);
   }
-  for (int i=0; i<8;i++) {
+  for (int i=0; i<8; i++) {
     printf("%d\n", y[i]);
   }
 }
