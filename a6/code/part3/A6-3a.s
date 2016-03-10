@@ -1,6 +1,6 @@
 .pos 0x0
-                 ld   $sb, r5
-                 inca r5
+                 ld   $sb, r5 # stack
+                 inca r5      # allocate space for return
                  gpc  $6, r6
                  j    0x300
                  halt
@@ -15,6 +15,7 @@
                  add  r3, r0					# r0 = a + *0x100[b]
                  st   r0, (r2, r1, 4) # *0x100[b] += a
                  j    0x0(r6)         # return
+
 .pos 0x300
                  ld   $0xfffffff4, r0 # allocate space on stack
                  add  r0, r5 # staaaaaack
@@ -48,16 +49,16 @@
                  add  r0, r5
                  j    0x0(r6)
 .pos 0x1000
-                 .long 0x00000000
-                 .long 0x00000000
-                 .long 0x00000000
-                 .long 0x00000000
-                 .long 0x00000000
-                 .long 0x00000000
-                 .long 0x00000000
-                 .long 0x00000000
-                 .long 0x00000000
-                 .long 0x00000000
+	.long 0x00000000
+	.long 0x00000000
+	.long 0x00000000
+	.long 0x00000000
+	.long 0x00000000
+	.long 0x00000000
+	.long 0x00000000
+	.long 0x00000000
+	.long 0x00000000
+	.long 0x00000000
 .pos 0x8000
 # These are here so you can see (some of) the stack contents.
     .long 0
