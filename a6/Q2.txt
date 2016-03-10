@@ -9,6 +9,9 @@ Replace 23 with:
 ld   0x14(r5), r0
 Replace 25 with:
 ld   0x18(r5), r0
+Insert after 26:
+ld 0x1c(r5), r0
+st r0, 0x8(r5)
 Replace 29 with:
 ld   0x10(r5), r6
 Replace 30 with:
