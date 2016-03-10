@@ -1,5 +1,5 @@
-a) 7 and 8 and 20 and 21
-b) 15 and 16 and 30 and 31
+a) 7-8 and 20-21
+b) 15-16 and 30-31
 c)
 Replace 20 with:
 ld   $0xffffffec, r0
