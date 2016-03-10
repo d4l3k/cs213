@@ -21,27 +21,27 @@
                  add  r0, r5 # staaaaaack
                  st   r6, 0x8(r5)  # store return pointer in stack
                  ld   $0x1, r0 # r0 = 1
-                 st   r0, 0x0(r5) # store 1 into arg 0
+                 st   r0, 0x0(r5) # store 1 into local val a
                  ld   $0x2, r0 # r0 = 2
-                 st   r0, 0x4(r5) # store 2 in arg 1
-                 ld   $0xfffffff8, r0
-                 add  r0, r5
-                 ld   $0x3, r0
-                 st   r0, 0x0(r5)
+                 st   r0, 0x4(r5) # store 2 into local val b
+                 ld   $0xfffffff8, r0 # allocate 8 bytes for callee
+                 add  r0, r5          # ...
+                 ld   $0x3, r0       # r0 = 3
+                 st   r0, 0x0(r5)     # arg0 = 3
                  ld   $0x4, r0
-                 st   r0, 0x4(r5)
+                 st   r0, 0x4(r5)     # arg1 = 4
+                 gpc  $6, r6				  # save return
+                 j    0x200						# call 0x200
+                 ld   $0x8, r0        # deallocate 8 bytes for callee
+                 add  r0, r5          # ..
+                 ld   0x0(r5), r1     # load  a
+                 ld   0x4(r5), r2     # load b
+                 ld   $0xfffffff8, r0 # alloc 8 bytes for calling func
+                 add  r0, r5          # ...
+                 st   r1, 0x0(r5)     # arg0 = a
+                 st   r2, 0x4(r5)     # arg1 = b
                  gpc  $6, r6
-                 j    0x200
-                 ld   $0x8, r0
-                 add  r0, r5
-                 ld   0x0(r5), r1
-                 ld   0x4(r5), r2
-                 ld   $0xfffffff8, r0
-                 add  r0, r5
-                 st   r1, 0x0(r5)
-                 st   r2, 0x4(r5)
-                 gpc  $6, r6
-                 j    0x200
+                 j    0x200           # call 0x200
                  ld   $0x8, r0
                  add  r0, r5
                  ld   0x8(r5), r6
