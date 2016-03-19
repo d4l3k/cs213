@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include <stdio.h>
 #include "list.h"
 
 #define INITIAL_SIZE  10
@@ -33,7 +34,7 @@ void list_destroy (struct list* l) {
 }
 
 /**
- * Expand the capacity of the list.  
+ * Expand the capacity of the list.
  * New size is old size times GROWTH_FACTOR.
  * Internal helper function.
  */
@@ -92,7 +93,7 @@ element_t list_get (struct list* list, int pos) {
 
 /**
  * Return the position (0..len-1) of e where equality
- * is established by equality function, which returns 1 
+ * is established by equality function, which returns 1
  * iff two objects are equal.
  */
 int list_index (struct list* list, element_t element, int (*equal) (element_t, element_t)) {
@@ -112,13 +113,18 @@ int list_len (struct list* list) {
 /**
  * Map function f(out,in) onto in_list placing results in out_list.
  * The lists in_list and out_list must not be the same list.
- * For f(out,in): 
+ * For f(out,in):
  *    out is pointer to an element that will be placed in out_list
  *        if *out is NULL then f should allocate a new element and set *out to point to it
  *    in  is an element from in_list
  */
 void list_map1 (void (*f) (element_t*, element_t), struct list* out_list, struct list* in_list) {
-  // TODO
+  for (int i=0; i<list_len(in_list); i++) {
+    element_t *out = malloc(sizeof(element_t));
+    f(out,list_get(in_list, i));
+    list_append(out_list, *out);
+    free(out);
+  }
 }
 
 /**
@@ -133,7 +139,16 @@ void list_map1 (void (*f) (element_t*, element_t), struct list* out_list, struct
  *    in1  is an element from in_list1
  */
 void list_map2 (void (*f) (element_t*, element_t, element_t), struct list* out_list, struct list* in_list0, struct list* in_list1) {
-  // TODO
+  int len0 = list_len(in_list1);
+  int len1 = list_len(in_list1);
+
+  int len = len0 < len1 ? len0 : len1;
+  for (int i=0; i<len; i++) {
+    element_t* out = malloc(sizeof(element_t));
+    f(out,list_get(in_list0, i),list_get(in_list1, i));
+    list_append(out_list, *out);
+    free(out);
+  }
 }
 
 /**
@@ -144,7 +159,10 @@ void list_map2 (void (*f) (element_t*, element_t, element_t), struct list* out_l
  *    in  is an element from in_list
  */
 void list_foldl (void (*f) (element_t*, element_t, element_t), element_t* out_element_p,  struct list* in_list) {
-  // TODO
+  for (int i=0;i<list_len(in_list); i++) {
+    element_t* e = list_get(in_list, i);
+    f(out_element_p, *out_element_p, e);
+  }
 }
 
 /**
@@ -156,7 +174,12 @@ void list_foldl (void (*f) (element_t*, element_t, element_t), element_t* out_el
  *    returns true (1) iff in should be included in out_list and 0 otherwise
  */
 void list_filter (int (*f) (element_t), struct list* out_list, struct list* in_list) {
-  // TODO
+  for (int i=0;i<list_len(in_list); i++) {
+    element_t* e = list_get(in_list, i);
+    if (f(e) != 0) {
+      list_append(out_list, e);
+    }
+  }
 }
 
 /**
