@@ -8,7 +8,7 @@
 
 struct Person_class {
   void*   super;
-  char* (* toString ) (void*);
+  void (* toString ) (void*, char*, int);
 };
 
 struct Person {
@@ -16,10 +16,8 @@ struct Person {
   char *name;
 };
 
-char* Person_toString (void* this) {
-  char *buf = malloc(sizeof(char)*1000);
-  snprintf (buf, 1000, "Name: %s", ((struct Person*)this)->name);
-  return buf;
+void Person_toString (void* this, char* buf, int bufSize) {
+  snprintf (buf, bufSize, "Name: %s", ((struct Person*)this)->name);
 }
 
 struct Person_class Person_class_obj = {NULL, Person_toString};
@@ -38,7 +36,7 @@ struct Person* new_Person(char *name) {
 
 struct Student_class {
   struct Person_class* super;
-  char*         (* toString ) (void*);
+  void         (* toString ) (void*, char*, int);
 };
 
 struct Student {
@@ -47,14 +45,12 @@ struct Student {
   int sid;
 };
 
-char* Student_toString (void* this) {
+void Student_toString (void* this, char* buf, int bufSize) {
   struct Student *s = (struct Student*)this;
-  char *prev = s->class->super->toString(s);
-
-  char *buf = malloc(sizeof(char)*1000);
-  snprintf (buf, 1000, "%s, SID: %d", prev, s->sid);
+  char* prev = malloc(sizeof(char)*bufSize);
+  s->class->super->toString(s, prev, bufSize);
+  snprintf (buf, bufSize, "%s, SID: %d", prev, s->sid);
   free(prev);
-  return buf;
 }
 
 struct Student_class Student_class_obj = {&Person_class_obj, Student_toString};
@@ -74,9 +70,10 @@ struct Student* new_Student(char *name, int sid) {
 
 void print (void* aVP) {
   struct Person* a = aVP;
-  char *s = a->class->toString(a);
-  printf("%s\n", s);
-  free(s);
+  char *buf = malloc(sizeof(char)*1000);
+  a->class->toString(a, buf, 1000);
+  printf("%s\n", buf);
+  free(buf);
 }
 
 int main (int argc, char** argv) {
