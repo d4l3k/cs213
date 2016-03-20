@@ -176,7 +176,7 @@ void list_foldl (void (*f) (element_t*, element_t, element_t), element_t* out_el
 void list_filter (int (*f) (element_t), struct list* out_list, struct list* in_list) {
   for (int i=0;i<list_len(in_list); i++) {
     element_t* e = list_get(in_list, i);
-    if (f(e) != 0) {
+    if (f(e) == 1) {
       list_append(out_list, e);
     }
   }
