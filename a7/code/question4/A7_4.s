@@ -60,8 +60,8 @@ L1:  // }
 	br  L7
 	not r1       // 0x354
 	inc r1
-	add r2, r1   // b = b-c
-	bgt r1, L2   // if (b-c<=0) {
+	add r2, r1   // b = c-b
+	bgt r1, L2   // if (c-b<=0) {
 	ld  $0x0, r2 // c = 0;
 	br  L3       // } else {
 

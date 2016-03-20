@@ -24,7 +24,7 @@ P33C:
   goto L7;
 
 P354:
-  if (b-c <= 0) {
+  if (c-b <= 0) {
     c = 0;
   } else {
     c = 1;
