@@ -40,35 +40,35 @@ ld   $0x400, r3      // r3 = 0x400
 j    *(r3, r0, 4)    // jump to 0x400[arg0-10];
 
 .pos 0x330
-add  r1, r2
+add  r1, r2   // c = c + a
 br   L7
-not  r2
+not  r2       // 0x334
 inc  r2
-add  r1, r2
+add  r1, r2   // c = -c+b
 br   L7
 not  r2       // 0x33C
 inc  r2
-add  r1, r2
-bgt  r2, L0
-ld   $0x0, r2
-br   L1
+add  r1, r2   // c = -c+b
+bgt  r2, L0   // if (b-c <= 0) {
+ld   $0x0, r2 // c=0;
+br   L1       // } else {
 
 L0:
-	ld $0x1, r2
+	ld $0x1, r2 // c=1;
 
-L1:
+L1:  // }
 	br  L7
 	not r1       // 0x354
 	inc r1
-	add r2, r1
-	bgt r1, L2
-	ld  $0x0, r2
-	br  L3
+	add r2, r1   // b = b-c
+	bgt r1, L2   // if (b-c<=0) {
+	ld  $0x0, r2 // c = 0;
+	br  L3       // } else {
 
 L2:
-	ld $0x1, r2
+	ld $0x1, r2 // c = 1;
 
-L3:
+L3:  // }
 	br  L7       // 0x36C
 	not r2
 	inc r2

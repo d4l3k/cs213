@@ -16,8 +16,7 @@ P334:
   goto L7;
 
 P33C:
-  c = c+1+b;
-  if (c<=0) {
+  if (b-c <= 0) {
     c = 0;
   } else {
     c = 1;
@@ -25,10 +24,10 @@ P33C:
   goto L7;
 
 P354:
-  if (b+1+c > 0) {
-    c = 1;
-  } else {
+  if (b-c <= 0) {
     c = 0;
+  } else {
+    c = 1;
   }
   goto L7;
 
