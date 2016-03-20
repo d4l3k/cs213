@@ -139,10 +139,11 @@ void list_map1 (void (*f) (element_t*, element_t), struct list* out_list, struct
  *    in1  is an element from in_list1
  */
 void list_map2 (void (*f) (element_t*, element_t, element_t), struct list* out_list, struct list* in_list0, struct list* in_list1) {
-  int len0 = list_len(in_list1);
+  int len0 = list_len(in_list0);
   int len1 = list_len(in_list1);
 
   int len = len0 < len1 ? len0 : len1;
+
   for (int i=0; i<len; i++) {
     element_t* out = malloc(sizeof(element_t));
     f(out,list_get(in_list0, i),list_get(in_list1, i));

@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include "list.h"
+#include <string.h>
 
 void print (element_t ev) {
   intptr_t e = (intptr_t) ev;
@@ -48,6 +49,10 @@ void trunct (element_t* rv, element_t av, element_t bv) {
   char *  a = (char *)  av;
   intptr_t  b = (intptr_t)  bv;
   char** r = (char**) rv;
+  if (strlen(a) <= b) {
+    *r = a;
+    return;
+  }
   a[(int)b] = 0;
   *r = a;
 }
