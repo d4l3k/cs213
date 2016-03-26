@@ -3,6 +3,7 @@
 #include <string.h>
 #include <sys/errno.h>
 #include <assert.h>
+#include <stdint.h>
 #include "queue.h"
 #include "disk.h"
 #include "uthread.h"
@@ -42,7 +43,7 @@ void handle_read (char* buf, int blockno) {
  * abstracted here into a procedure ... why?
  */
 void* read (void* blockno_v) {
-  int blockno = (int)blockno_v;
+  int blockno = (int)(intptr_t)blockno_v;
   char buf[8];
   disk_schedule_read  (buf, sizeof (buf), blockno);
   queue_enqueue(&prq, uthread_self());
@@ -58,11 +59,11 @@ void run (int num_blocks) {
   uthread_t t[num_blocks];
 
   for (int blockno = 0; blockno < num_blocks; blockno++) {
-    t[blockno] = uthread_create(&read, (void *)(blockno));
+    t[blockno] = uthread_create(&read, (void *)(intptr_t)(blockno));
   }
 
   for (int blockno = 0; blockno < num_blocks; blockno++) {
-    int *res;
+    void *res;
     uthread_join(t[blockno], &res);
   }
 }
