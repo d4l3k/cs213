@@ -46,8 +46,9 @@ void* read (void* blockno_v) {
   int blockno = (int)(intptr_t)blockno_v;
   char buf[8];
   disk_schedule_read  (buf, sizeof (buf), blockno);
-  queue_enqueue(&prq, uthread_self());
-  uthread_block(uthread_self());
+  uthread_t t = uthread_self();
+  queue_enqueue(&prq, t);
+  uthread_block(t);
   handle_read         (buf, blockno);
   return NULL;
 }
