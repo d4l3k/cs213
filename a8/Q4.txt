@@ -1,0 +1,6 @@
+To test, I ran it several times with different values to ensure that it was
+working correctly. The sum of the histogram should equal 2*NUM_ITERATIONS if
+everything is working. In addition, when NUM_CONSUMERS > NUM_PRODUCERS, the
+histogram should be centered around 0, but in the opposite case, the histogram
+is much more spread out since there are more things being produced than
+consumed.
