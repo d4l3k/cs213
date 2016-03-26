@@ -1,0 +1,34 @@
+ ~/Developer/cs213/a8/code   master ●  time ./aRead 10
+10
+./aRead 10  0.01s user 0.00s system 82% cpu 0.012 total
+ ~/Developer/cs213/a8/code   master ●  time ./aRead 10
+10
+./aRead 10  0.01s user 0.00s system 90% cpu 0.011 total
+ ~/Developer/cs213/a8/code   master ●  time ./aRead 10
+10
+./aRead 10  0.01s user 0.00s system 81% cpu 0.012 total
+
+ ~/Developer/cs213/a8/code   master ●  time ./aRead 100
+85328
+./aRead 100  0.01s user 0.00s system 77% cpu 0.013 total
+ ~/Developer/cs213/a8/code   master ●  time ./aRead 100
+85328
+./aRead 100  0.01s user 0.00s system 73% cpu 0.014 total
+ ~/Developer/cs213/a8/code   master ●  time ./aRead 100
+85328
+./aRead 100  0.01s user 0.00s system 79% cpu 0.013 total
+
+ ~/Developer/cs213/a8/code   master ●  time ./aRead 1000
+151168
+./aRead 1000  0.01s user 0.00s system 81% cpu 0.012 total
+ ~/Developer/cs213/a8/code   master ●  time ./aRead 1000
+151168
+./aRead 1000  0.01s user 0.00s system 80% cpu 0.012 total
+ ~/Developer/cs213/a8/code   master ●  time ./aRead 1000
+151168
+./aRead 1000  0.01s user 0.00s system 96% cpu 0.014 total
+
+
+aRead is significantly faster than sRead especially for larger number of
+blocks. This is because aRead doesn't wait for every single block to be read
+and can instead request them to be read in parallel. Thus, it's way faster.

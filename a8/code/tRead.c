@@ -18,7 +18,8 @@ queue_t prq;
  * Called automatically when an interrupt occurs to signal that a read has completed.
  */
 void interrupt_service_routine () {
-  // TODO
+  uthread_t t = queue_dequeue(&prq);
+  uthread_unblock(t);
 }
 
 /**
@@ -41,7 +42,12 @@ void handle_read (char* buf, int blockno) {
  * abstracted here into a procedure ... why?
  */
 void* read (void* blockno_v) {
-  // TODO
+  int blockno = (int)blockno_v;
+  char buf[8];
+  disk_schedule_read  (buf, sizeof (buf), blockno);
+  queue_enqueue(&prq, uthread_self());
+  uthread_block(uthread_self());
+  handle_read         (buf, blockno);
   return NULL;
 }
 
@@ -49,7 +55,16 @@ void* read (void* blockno_v) {
  * Read a count of num_blocks and wait for all reads to complete
  */
 void run (int num_blocks) {
-  // TODO
+  uthread_t t[num_blocks];
+
+  for (int blockno = 0; blockno < num_blocks; blockno++) {
+    t[blockno] = uthread_create(&read, (void *)(blockno));
+  }
+
+  for (int blockno = 0; blockno < num_blocks; blockno++) {
+    int *res;
+    uthread_join(t[blockno], &res);
+  }
 }
 
 int main (int argc, char** argv) {
@@ -62,12 +77,12 @@ int main (int argc, char** argv) {
     printf ("%s\n", usage);
     return EXIT_FAILURE;
   }
-  
+
   uthread_init (1);
   disk_start   (interrupt_service_routine);
   queue_init   (&prq);
-  
+
   run (num_blocks);
-  
+
   printf ("%ld\n", sum);
 }

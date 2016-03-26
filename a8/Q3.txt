@@ -1,0 +1,33 @@
+  ~/Developer/cs213/a8/code   master ●  time ./tRead 10
+10
+./tRead 10  0.00s user 0.01s system 93% cpu 0.014 total
+ ~/Developer/cs213/a8/code   master ●  time ./tRead 10
+10
+./tRead 10  0.00s user 0.01s system 92% cpu 0.014 total
+ ~/Developer/cs213/a8/code   master ●  time ./tRead 10
+10
+./tRead 10  0.00s user 0.01s system 90% cpu 0.015 total
+
+ ~/Developer/cs213/a8/code   master ●  time ./tRead 100
+85328
+./tRead 100  0.01s user 0.03s system 98% cpu 0.044 total
+ ~/Developer/cs213/a8/code   master ●  time ./tRead 100
+85328
+./tRead 100  0.01s user 0.03s system 96% cpu 0.042 total
+ ~/Developer/cs213/a8/code   master ●  time ./tRead 100
+85328
+./tRead 100  0.01s user 0.03s system 96% cpu 0.042 total
+
+ ~/Developer/cs213/a8/code   master ●  time ./tRead 1000
+151168
+./tRead 1000  0.01s user 0.78s system 99% cpu 0.794 total
+ ~/Developer/cs213/a8/code   master ●  time ./tRead 1000
+151168
+./tRead 1000  0.01s user 0.78s system 99% cpu 0.795 total
+ ~/Developer/cs213/a8/code   master ●  time ./tRead 1000
+151168
+./tRead 1000  0.00s user 0.79s system 99% cpu 0.795 total
+
+tRead is a lot faster than sRead, but still a bit slower than aRead. This is
+probably because while tRead is non blocking, there is a lot of overhead to
+creating hundreds to thousands of threads.

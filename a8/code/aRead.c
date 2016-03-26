@@ -37,7 +37,8 @@ void init_pending_read (struct pending_read* pr, char* buf, int blockno, void (*
  * Called automatically when an interrupt occurs to signal that a read has completed.
  */
 void interrupt_service_routine() {
-  // TODO
+  struct pending_read* pr = queue_dequeue(&prq);
+  pr->handler(pr->buf, pr->blockno);
 }
 
 /**
@@ -59,9 +60,11 @@ void handle_read (char* buf, int blockno) {
 void run (int num_blocks) {
   char                buf [num_blocks] [8];
   struct pending_read pr  [num_blocks];
-  
+
   for (int blockno = 0; blockno < num_blocks; blockno++) {
-    // TODO
+    init_pending_read(&pr[blockno], buf[blockno], blockno, handle_read);
+    queue_enqueue(&prq, &pr[blockno]);
+    disk_schedule_read(buf[blockno], sizeof(buf[blockno]), blockno);
   }
   disk_wait_for_reads();
 }

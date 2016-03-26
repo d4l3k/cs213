@@ -1,0 +1,13 @@
+ time ./sRead 10
+10
+./sRead 10  0.11s user 0.00s system 97% cpu 0.109 total
+
+time ./sRead 100
+85328
+./sRead 100  1.08s user 0.00s system 99% cpu 1.086 total
+
+time ./sRead 1000
+151168
+./sRead 1000  10.75s user 0.00s system 99% cpu 10.753 total
+
+Read times are linear to the number of blocks that are being read since after each read is scheduled, it waits for it to be read.
