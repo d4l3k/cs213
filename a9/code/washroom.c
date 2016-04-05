@@ -28,6 +28,7 @@ struct Washroom {
   uthread_cond_t  male;
   uthread_cond_t  female;
   int count;
+  int entered;
   enum Sex sex;
 };
 
@@ -38,6 +39,7 @@ struct Washroom* createWashroom() {
   washroom->female   = uthread_cond_create (washroom->mutex);
   washroom->count = 0;
   washroom->sex = 0;
+  washroom->entered = 0;
   return washroom;
 }
 
@@ -71,8 +73,16 @@ void enterWashroom (struct Washroom* w, enum Sex sex) {
   if (w->count==0) {
     w->sex = sex;
   } else {
+    int c = w->entered;
     waitSex(w,sex);
+    int waitingTime = w->entered - c;
+    if (waitingTime < WAITING_HISTOGRAM_SIZE) {
+      waitingHistogram [waitingTime] ++;
+    } else {
+      waitingHistogramOverflow ++;
+    }
   }
+  w->entered++;
   w->count++;
   occupancyHistogram[sex][w->count]++;
   uthread_mutex_unlock(w->mutex);
